@@ -6,7 +6,7 @@ const SEED_MEMBERS: Member[] = [
     id: 'seed-1',
     name: 'Martin Pohl',
     role: 'Systems Engineer',
-    linkedin_url: 'https://www.linkedin.com/in/martinpohl/',
+    linkedin_url: 'https://www.linkedin.com/in/martinp0/',
     description:
       'Apple MDM specialista. Nastavuji a automatizuji Apple zařízení ve firmách — zero-touch deployment, Jamf, Mosyle, SSO. Taky buduju vlastní projekty.',
     services: ['Apple MDM', 'Jamf Pro', 'Mosyle', 'macOS', 'iOS', 'SSO'],
@@ -54,8 +54,8 @@ const SEED_MEMBERS: Member[] = [
 ]
 
 export default function TeamSection({ dbMembers }: { dbMembers: Member[] }) {
-  const martinFromDb = dbMembers.find((m) => m.linkedin_url.includes('martinpohl'))
-  const others = dbMembers.filter((m) => !m.linkedin_url.includes('martinpohl'))
+  const martinFromDb = dbMembers.find((m) => m.linkedin_url.includes('martinp0'))
+  const others = dbMembers.filter((m) => !m.linkedin_url.includes('martinp0'))
 
   const displayed: Member[] = [
     martinFromDb ?? SEED_MEMBERS[0],

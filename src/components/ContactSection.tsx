@@ -48,7 +48,7 @@ export default function ContactSection() {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/martinpohl/"
+                href="https://www.linkedin.com/in/martinp0/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 group"
