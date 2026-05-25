@@ -141,14 +141,11 @@
   html { @apply font-sans; }
 }
 
-/* ── Page background with ambient gradients ── */
+/* ── Body is transparent – canvas provides the background ── */
 body {
-  background-color: var(--page-bg) !important;
-  background-image:
-    radial-gradient(ellipse 80% 60% at 5% 0%, var(--ac-light) 0%, transparent 65%),
-    radial-gradient(ellipse 60% 45% at 95% 100%, rgba(168, 85, 247, 0.06) 0%, transparent 65%);
+  background: transparent !important;
   color: var(--tx1);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 /* ── Glass utilities ── */

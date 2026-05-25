@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeScript } from './ThemeScript'
 import { Providers } from './Providers'
+import AnimatedBackground from '@/components/AnimatedBackground'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] })
@@ -25,8 +26,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <ThemeScript />
       </head>
-      <body className="min-h-full flex flex-col">
-        <Providers>{children}</Providers>
+      <body className="min-h-full flex flex-col relative" style={{ background: 'transparent' }}>
+        <AnimatedBackground />
+        <Providers>
+          <div className="relative" style={{ zIndex: 1 }}>
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   )

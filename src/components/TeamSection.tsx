@@ -30,14 +30,15 @@ function OpenSlot({ role, color, bg, border, icon }: typeof OPEN_SLOTS[0]) {
     document.getElementById('join')?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <div className="relative rounded-[1.25rem] flex flex-col items-center justify-center text-center gap-3 p-6 transition-all hover:scale-[1.01]"
+    <div className="relative rounded-[1.25rem] flex flex-col items-center justify-center text-center gap-3 p-6 transition-all hover:scale-[1.02]"
       style={{
         border: `1.5px dashed ${border}`,
         minHeight: 260,
         background: 'var(--glass-bg-subtle)',
         backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
       }}>
-      <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-1"
+      <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl"
         style={{ background: bg, border: `1.5px solid ${border}` }}>
         {icon}
       </div>
@@ -51,16 +52,15 @@ function OpenSlot({ role, color, bg, border, icon }: typeof OPEN_SLOTS[0]) {
       <p className="text-sm leading-relaxed" style={{ color: 'var(--tx3)' }}>
         {t.team.openDesc}
       </p>
-      <button
-        onClick={scrollToJoin}
+      <button onClick={scrollToJoin}
         className="mt-1 inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-full transition-all"
         style={{ color, background: bg, border: `1px solid ${border}` }}
         onMouseEnter={e => {
-          (e.currentTarget as HTMLElement).style.background = color
+          ;(e.currentTarget as HTMLElement).style.background = color
           ;(e.currentTarget as HTMLElement).style.color = 'white'
         }}
         onMouseLeave={e => {
-          (e.currentTarget as HTMLElement).style.background = bg
+          ;(e.currentTarget as HTMLElement).style.background = bg
           ;(e.currentTarget as HTMLElement).style.color = color
         }}>
         {t.team.openCta}
@@ -76,16 +76,12 @@ export default function TeamSection({ dbMembers }: { dbMembers: Member[] }) {
   const others = dbMembers.filter(m => !m.linkedin_url.includes('martinp0'))
 
   return (
-    <section id="team" className="py-24 px-6">
-      {/* Decorative orb */}
-      <div className="pointer-events-none absolute left-0 w-96 h-96 rounded-full blur-[100px] opacity-10"
-        style={{ background: 'radial-gradient(circle, #7c3aed, transparent)' }} />
-
-      <div className="max-w-5xl mx-auto relative">
+    <section id="team" className="py-24 px-5">
+      <div className="max-w-5xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div>
             <p className="overline mb-3">{t.team.label}</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ color: 'var(--tx1)' }}>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight" style={{ color: 'var(--tx1)' }}>
               {t.team.title}
             </h2>
           </div>
