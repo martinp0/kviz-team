@@ -2,52 +2,107 @@
 
 import { useLang } from '@/lib/LangContext'
 
+const TIME_BADGES = ['< 24h', '< 3d', '< 1w']
+const STEP_COLORS = ['#7c3aed', '#2563eb', '#059669']
+
 export default function Process() {
   const { t } = useLang()
 
   return (
-    <section id="process" className="py-24 px-5">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-14">
-          <p className="overline mb-3">{t.process.label}</p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4" style={{ color: 'var(--tx1)' }}>
+    <section id="process" className="py-28 px-5">
+      <div className="max-w-6xl mx-auto">
+
+        {/* Header */}
+        <div className="mb-16">
+          <p className="overline mb-4">{t.process.label}</p>
+          <h2
+            className="font-extrabold tracking-tight"
+            style={{
+              fontSize: 'clamp(32px, 5.5vw, 60px)',
+              letterSpacing: '-0.03em',
+              lineHeight: 1.05,
+              color: 'var(--tx1)',
+            }}
+          >
             {t.process.titleMain}<br />
             <span className="grad-text">{t.process.titleAccent}</span>
           </h2>
-          <p className="max-w-sm mx-auto leading-relaxed text-sm sm:text-base" style={{ color: 'var(--tx2)' }}>
-            {t.process.sub}
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
-          {/* Connector line – desktop */}
-          <div className="hidden md:block absolute top-10 left-[20%] right-[20%] h-px"
-            style={{ background: 'linear-gradient(to right, rgba(124,58,237,0.3), rgba(37,99,235,0.3), rgba(5,150,105,0.3))' }} />
-
-          {t.process.steps.map((step) => (
-            <div key={step.num} className="glass p-6 sm:p-8 relative">
-              <div className="text-xs font-bold mb-5 inline-flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white"
-                  style={{ background: step.color, boxShadow: `0 4px 14px ${step.color}50` }}>
-                  {parseInt(step.num)}
+        {/* Steps */}
+        <div className="space-y-0">
+          {t.process.steps.map((step, i) => (
+            <div
+              key={step.num}
+              className="relative grid grid-cols-[64px_1fr] md:grid-cols-[120px_1fr_auto] gap-6 md:gap-12 items-start py-8 group"
+              style={{ borderTop: i === 0 ? '1px solid var(--divider)' : undefined, borderBottom: '1px solid var(--divider)' }}
+            >
+              {/* Step number */}
+              <div className="flex flex-col items-start">
+                <span
+                  className="font-mono font-bold"
+                  style={{
+                    fontFamily: 'var(--font-geist-mono)',
+                    fontSize: 'clamp(28px, 4vw, 44px)',
+                    letterSpacing: '-0.04em',
+                    lineHeight: 1,
+                    color: 'var(--tx3)',
+                    transition: 'color 0.2s',
+                  }}
+                  data-num={step.num}
+                >
+                  {step.num}
                 </span>
-                <span style={{ color: step.color }}>{step.num}</span>
+                <div
+                  className="mt-2 h-0.5 w-8"
+                  style={{
+                    background: `linear-gradient(90deg, ${STEP_COLORS[i]}, transparent)`,
+                    transition: 'width 0.3s',
+                  }}
+                />
               </div>
 
-              <div className="w-11 h-11 rounded-2xl flex items-center justify-center text-2xl mb-4"
-                style={{ background: step.bg }}>
-                {step.icon}
+              {/* Content */}
+              <div className="pt-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <h3
+                    className="font-bold text-lg"
+                    style={{ color: 'var(--tx1)', letterSpacing: '-0.02em' }}
+                  >
+                    {step.title}
+                  </h3>
+                </div>
+                <p className="text-[13px] leading-relaxed max-w-lg" style={{ color: 'var(--tx2)' }}>
+                  {step.desc}
+                </p>
               </div>
 
-              <h3 className="font-bold text-lg sm:text-xl mb-3" style={{ color: 'var(--tx1)' }}>{step.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--tx2)' }}>{step.desc}</p>
+              {/* Time badge — desktop */}
+              <div className="hidden md:flex items-start pt-1">
+                <span
+                  className="px-3 py-1.5 rounded-lg text-[11px] font-semibold"
+                  style={{
+                    fontFamily: 'var(--font-geist-mono)',
+                    background: `${STEP_COLORS[i]}12`,
+                    color: STEP_COLORS[i],
+                    border: `1px solid ${STEP_COLORS[i]}25`,
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  {TIME_BADGES[i]}
+                </span>
+              </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-sm text-center" style={{ color: 'var(--tx3)' }}>
-          <span className="w-2 h-2 rounded-full bg-emerald-400 pulse flex-shrink-0" />
-          <span>{t.process.avgTime}&nbsp;<strong style={{ color: 'var(--tx1)' }}>{t.process.avgTimeValue}</strong></span>
+        {/* Bottom note */}
+        <div className="mt-8 flex items-center gap-3">
+          <span className="status-dot" />
+          <p className="text-[13px]" style={{ color: 'var(--tx2)' }}>
+            {t.process.avgTime}{' '}
+            <strong style={{ color: 'var(--tx1)', fontWeight: 600 }}>{t.process.avgTimeValue}</strong>
+          </p>
         </div>
       </div>
     </section>
