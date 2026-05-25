@@ -1,39 +1,25 @@
 'use client'
 
 import { useState } from 'react'
-
-const QUESTIONS = [
-  {
-    q: 'Co je MDM?',
-    options: ['Mobile Device Management', 'Most Dynamic Method', 'Mega Data Module', "Martin's Deploy Machine"],
-    correct: 0,
-  },
-  {
-    q: 'Jaký příkaz zobrazí running containers?',
-    options: ['docker list', 'docker ps', 'docker show', 'docker containers'],
-    correct: 1,
-  },
-  {
-    q: 'Kolik je 2¹⁰?',
-    options: ['512', '1 024', '2 048', '100'],
-    correct: 1,
-  },
-]
+import { useLang } from '@/lib/LangContext'
 
 export default function QuizEasterEgg() {
+  const { t } = useLang()
   const [open, setOpen] = useState(false)
   const [qi, setQi] = useState(0)
   const [score, setScore] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [done, setDone] = useState(false)
 
+  const qs = t.quiz.questions
+
   function handleAnswer(idx: number) {
     if (selected !== null) return
     setSelected(idx)
-    if (idx === QUESTIONS[qi].correct) setScore((s) => s + 1)
+    if (idx === qs[qi].correct) setScore(s => s + 1)
     setTimeout(() => {
-      if (qi + 1 < QUESTIONS.length) {
-        setQi((q) => q + 1)
+      if (qi + 1 < qs.length) {
+        setQi(q => q + 1)
         setSelected(null)
       } else {
         setDone(true)
@@ -45,52 +31,69 @@ export default function QuizEasterEgg() {
     setQi(0); setScore(0); setSelected(null); setDone(false)
   }
 
-  const q = QUESTIONS[qi]
+  const q = qs[qi]
+  const resultMsg = score === qs.length ? t.quiz.results[0] : score >= 2 ? t.quiz.results[1] : t.quiz.results[2]
 
   return (
     <section className="py-16 px-6">
       <div className="max-w-5xl mx-auto flex flex-col items-center">
         <button
-          onClick={() => setOpen((o) => !o)}
-          className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-200 bg-white shadow-sm text-sm text-gray-600 hover:border-[#7c3aed]/40 hover:text-[#7c3aed] transition-all group"
-        >
+          onClick={() => setOpen(o => !o)}
+          className="btn-ghost px-6 py-3 text-sm"
+          style={{ color: 'var(--tx2)' }}>
           <span className="text-base">🧠</span>
-          Jsme tým z kvízu — otestuj se
-          <span className={`text-gray-300 transition-transform ${open ? 'rotate-180' : ''}`}>↓</span>
+          {t.quiz.toggle}
+          <span style={{ color: 'var(--tx3)', transform: open ? 'rotate(180deg)' : 'none', display: 'inline-block', transition: 'transform 0.2s' }}>↓</span>
         </button>
 
         {open && (
-          <div className="mt-5 w-full max-w-sm bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+          <div className="mt-5 w-full max-w-sm glass-strong p-6 fade-in">
             {!done ? (
               <>
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-xs text-gray-400 font-mono">{qi + 1}/{QUESTIONS.length}</span>
-                  <div className="flex-1 h-1 bg-gray-100 rounded-full overflow-hidden">
+                  <span className="text-xs font-mono" style={{ color: 'var(--tx3)' }}>{qi + 1}/{qs.length}</span>
+                  <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ background: 'var(--glass-bg)' }}>
                     <div
-                      className="h-full bg-[#7c3aed] rounded-full transition-all duration-500"
-                      style={{ width: `${(qi / QUESTIONS.length) * 100}%` }}
-                    />
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{ width: `${(qi / qs.length) * 100}%`, background: 'var(--ac)' }} />
                   </div>
                 </div>
-                <p className="text-sm font-semibold text-[#0f0f0f] mb-4">{q.q}</p>
+
+                <p className="text-sm font-semibold mb-4" style={{ color: 'var(--tx1)' }}>{q.q}</p>
+
                 <div className="space-y-2">
-                  {q.options.map((opt, idx) => {
+                  {q.opts.map((opt, idx) => {
                     const isCorrect = idx === q.correct
                     const isSelected = idx === selected
-                    let cls = 'w-full text-left px-4 py-2.5 rounded-xl text-sm border transition-all '
-                    if (selected === null) {
-                      cls += 'border-gray-200 text-gray-600 hover:border-[#7c3aed]/40 hover:bg-[#faf5ff] hover:text-[#7c3aed]'
-                    } else if (isSelected && isCorrect) {
-                      cls += 'border-emerald-200 bg-emerald-50 text-emerald-700'
-                    } else if (isSelected && !isCorrect) {
-                      cls += 'border-red-200 bg-red-50 text-red-600'
-                    } else if (isCorrect) {
-                      cls += 'border-emerald-100 bg-emerald-50/50 text-emerald-600'
-                    } else {
-                      cls += 'border-gray-100 text-gray-400'
+                    let bg = 'var(--glass-bg)'
+                    let color = 'var(--tx2)'
+                    let border = 'var(--glass-border)'
+
+                    if (selected !== null) {
+                      if (isSelected && isCorrect)  { bg = 'rgba(5,150,105,0.1)';  color = '#059669'; border = 'rgba(5,150,105,0.25)' }
+                      else if (isSelected && !isCorrect) { bg = 'rgba(239,68,68,0.08)';  color = '#ef4444'; border = 'rgba(239,68,68,0.2)' }
+                      else if (isCorrect)           { bg = 'rgba(5,150,105,0.07)';  color = '#059669'; border = 'rgba(5,150,105,0.2)' }
+                      else                          { color = 'var(--tx3)' }
                     }
+
                     return (
-                      <button key={opt} onClick={() => handleAnswer(idx)} disabled={selected !== null} className={cls}>
+                      <button key={opt}
+                        onClick={() => handleAnswer(idx)}
+                        disabled={selected !== null}
+                        className="w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all"
+                        style={{ background: bg, color, border: `1px solid ${border}` }}
+                        onMouseEnter={e => {
+                          if (selected === null) {
+                            ;(e.currentTarget as HTMLElement).style.borderColor = 'var(--ac-border)'
+                            ;(e.currentTarget as HTMLElement).style.color = 'var(--tx1)'
+                          }
+                        }}
+                        onMouseLeave={e => {
+                          if (selected === null) {
+                            ;(e.currentTarget as HTMLElement).style.borderColor = border
+                            ;(e.currentTarget as HTMLElement).style.color = color
+                          }
+                        }}>
                         {opt}
                       </button>
                     )
@@ -100,20 +103,17 @@ export default function QuizEasterEgg() {
             ) : (
               <div className="text-center py-2">
                 <div className="text-3xl mb-3">
-                  {score === QUESTIONS.length ? '🏆' : score >= 2 ? '🎯' : '📚'}
+                  {score === qs.length ? '🏆' : score >= 2 ? '🎯' : '📚'}
                 </div>
-                <p className="font-semibold text-[#0f0f0f] mb-1">{score}/{QUESTIONS.length} správně</p>
-                <p className="text-gray-400 text-sm mb-4">
-                  {score === QUESTIONS.length
-                    ? 'Perfektní! Ty bys do týmu pasoval/a.'
-                    : score >= 2 ? 'Dobrá práce! Kvíz bys zvládl/a.'
-                    : 'Nevadí — na kvízu se naučíš víc 😄'}
+                <p className="font-semibold mb-1" style={{ color: 'var(--tx1)' }}>
+                  {t.quiz.score(score, qs.length)}
                 </p>
+                <p className="text-sm mb-4" style={{ color: 'var(--tx2)' }}>{resultMsg}</p>
                 <button
                   onClick={reset}
-                  className="px-4 py-2 rounded-xl text-sm font-medium bg-[#faf5ff] text-[#7c3aed] hover:bg-[#ede9fe] transition-colors"
-                >
-                  Hrát znovu
+                  className="px-4 py-2 rounded-xl text-sm font-medium transition-all"
+                  style={{ background: 'var(--ac-light)', color: 'var(--ac)', border: '1px solid var(--ac-border)' }}>
+                  {t.quiz.restart}
                 </button>
               </div>
             )}
