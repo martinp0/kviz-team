@@ -16,131 +16,139 @@ export default function JoinSection() {
 
   if (result?.success) {
     return (
-      <section id="join" className="py-24 px-6 max-w-6xl mx-auto">
-        <div className="max-w-lg mx-auto text-center">
-          <div className="w-16 h-16 rounded-full bg-[#00ff88]/10 border border-[#00ff88]/30 flex items-center justify-center mx-auto mb-6 text-3xl">
+      <section id="join" className="py-24 px-6">
+        <div className="max-w-md mx-auto text-center">
+          <div className="w-16 h-16 rounded-2xl bg-[#f0fdf4] border border-emerald-100 flex items-center justify-center mx-auto mb-5 text-2xl">
             ✓
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">Žádost odeslána!</h3>
-          <p className="text-[#94a3b8]">
-            Přidáme tě do týmu po schválení. Ozve se ti Martin.
-          </p>
+          <h3 className="text-xl font-semibold text-[#0f0f0f] mb-2">Žádost odeslána!</h3>
+          <p className="text-gray-500 text-sm">Přidáme tě do týmu po schválení. Martin se ozve.</p>
         </div>
       </section>
     )
   }
 
   return (
-    <section id="join" className="py-24 px-6 max-w-6xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        <div>
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#00d4ff] mb-4">
-            <span className="text-[#7c3aed]">{'// '}</span>
-            team.join()
-          </div>
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Přidej se k týmu
-          </h2>
-          <p className="text-[#94a3b8] leading-relaxed mb-6">
-            Jsi IT specialista s volnou kapacitou? Chodíš nebo chceš chodit na kvíz?
-            Přidej se. Dostaneš profil na tomto webu a budeme moct spolupracovat na projektech.
-          </p>
+    <section id="join" className="py-24 px-6">
+      <div className="max-w-5xl mx-auto">
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Left — info */}
+            <div className="p-10 bg-[#1e1b4b] text-white">
+              <p className="text-xs font-semibold text-[#a78bfa] uppercase tracking-widest mb-6">
+                Přidat se
+              </p>
+              <h2 className="text-3xl font-bold mb-4 leading-tight">
+                Jsi IT specialista?<br />
+                <span className="text-[#a78bfa] italic">Přidej se k týmu.</span>
+              </h2>
+              <p className="text-white/70 text-sm leading-relaxed mb-8">
+                Máš volnou kapacitu a chceš spolupracovat na projektech?
+                Přidej svůj profil — zobrazíme tě na webu a budeme tě kontaktovat,
+                když přijde relevantní projekt.
+              </p>
 
-          <div className="space-y-3">
-            {[
-              { icon: '🎯', text: 'Profil na tomto webu' },
-              { icon: '🤝', text: 'Přístup k projektům týmu' },
-              { icon: '🍺', text: 'Kvíz každý týden' },
-            ].map((item) => (
-              <div key={item.text} className="flex items-center gap-3 text-[#94a3b8]">
-                <span>{item.icon}</span>
-                <span>{item.text}</span>
+              <div className="space-y-4">
+                {[
+                  { icon: '🎯', title: 'Profil na webu', desc: 'Tvoje specialita viditelná pro klienty' },
+                  { icon: '🤝', title: 'Spolupráce na projektech', desc: 'Přístup k poptávkám z celého týmu' },
+                  { icon: '🍺', title: 'Kvíz každý týden', desc: 'A samozřejmě i pivo' },
+                ].map((item) => (
+                  <div key={item.title} className="flex items-start gap-3">
+                    <span className="text-lg mt-0.5">{item.icon}</span>
+                    <div>
+                      <div className="text-sm font-medium text-white">{item.title}</div>
+                      <div className="text-xs text-white/50">{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Right — form */}
+            <form action={handleSubmit} className="p-10 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                    Jméno *
+                  </label>
+                  <input
+                    name="name"
+                    required
+                    placeholder="Jan Novák"
+                    className="w-full bg-[#f4f4f8] border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-[#0f0f0f] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7c3aed]/30 focus:border-[#7c3aed]/50 transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                    Role *
+                  </label>
+                  <input
+                    name="role"
+                    required
+                    placeholder="DevOps Engineer"
+                    className="w-full bg-[#f4f4f8] border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-[#0f0f0f] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7c3aed]/30 focus:border-[#7c3aed]/50 transition-all"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                  LinkedIn URL *
+                </label>
+                <input
+                  name="linkedin_url"
+                  type="url"
+                  required
+                  placeholder="https://linkedin.com/in/..."
+                  className="w-full bg-[#f4f4f8] border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-[#0f0f0f] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7c3aed]/30 focus:border-[#7c3aed]/50 transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                  Krátké bio *
+                </label>
+                <textarea
+                  name="description"
+                  required
+                  rows={3}
+                  placeholder="Čím se zabývám, co umím, co hledám..."
+                  className="w-full bg-[#f4f4f8] border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-[#0f0f0f] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7c3aed]/30 focus:border-[#7c3aed]/50 resize-none transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                  Skills (oddělené čárkou)
+                </label>
+                <input
+                  name="services"
+                  placeholder="Kubernetes, Terraform, AWS..."
+                  className="w-full bg-[#f4f4f8] border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-[#0f0f0f] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7c3aed]/30 focus:border-[#7c3aed]/50 transition-all"
+                />
+              </div>
+
+              {result?.error && (
+                <p className="text-red-500 text-sm bg-red-50 border border-red-100 rounded-xl px-4 py-2.5">
+                  {result.error}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={isPending}
+                className="w-full py-3 rounded-xl bg-[#7c3aed] text-white text-sm font-semibold hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {isPending ? 'Odesílám...' : 'Přidat se do týmu →'}
+              </button>
+
+              <p className="text-xs text-gray-400 text-center">
+                Profil se zobrazí po schválení správcem.
+              </p>
+            </form>
           </div>
         </div>
-
-        <form action={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs text-[#94a3b8] mb-1.5 font-mono">
-                jméno *
-              </label>
-              <input
-                name="name"
-                required
-                placeholder="Jan Novák"
-                className="w-full bg-[#0f0f1a] border border-[#1e2035] rounded-lg px-4 py-2.5 text-white placeholder-[#94a3b8]/40 focus:outline-none focus:border-[#00d4ff]/50 text-sm transition-colors"
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-[#94a3b8] mb-1.5 font-mono">
-                role *
-              </label>
-              <input
-                name="role"
-                required
-                placeholder="DevOps Engineer"
-                className="w-full bg-[#0f0f1a] border border-[#1e2035] rounded-lg px-4 py-2.5 text-white placeholder-[#94a3b8]/40 focus:outline-none focus:border-[#00d4ff]/50 text-sm transition-colors"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs text-[#94a3b8] mb-1.5 font-mono">
-              LinkedIn URL *
-            </label>
-            <input
-              name="linkedin_url"
-              type="url"
-              required
-              placeholder="https://linkedin.com/in/..."
-              className="w-full bg-[#0f0f1a] border border-[#1e2035] rounded-lg px-4 py-2.5 text-white placeholder-[#94a3b8]/40 focus:outline-none focus:border-[#00d4ff]/50 text-sm transition-colors"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs text-[#94a3b8] mb-1.5 font-mono">
-              krátký bio *
-            </label>
-            <textarea
-              name="description"
-              required
-              rows={3}
-              placeholder="Čím se zabývám, co umím, co hledám..."
-              className="w-full bg-[#0f0f1a] border border-[#1e2035] rounded-lg px-4 py-2.5 text-white placeholder-[#94a3b8]/40 focus:outline-none focus:border-[#00d4ff]/50 text-sm resize-none transition-colors"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs text-[#94a3b8] mb-1.5 font-mono">
-              skills (oddělené čárkou)
-            </label>
-            <input
-              name="services"
-              placeholder="Kubernetes, Terraform, AWS, CI/CD"
-              className="w-full bg-[#0f0f1a] border border-[#1e2035] rounded-lg px-4 py-2.5 text-white placeholder-[#94a3b8]/40 focus:outline-none focus:border-[#00d4ff]/50 text-sm transition-colors"
-            />
-          </div>
-
-          {result?.error && (
-            <p className="text-red-400 text-sm bg-red-400/10 border border-red-400/20 rounded-lg px-4 py-2.5">
-              {result.error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={isPending}
-            className="w-full py-3 rounded-lg bg-[#00d4ff] text-[#08080f] font-semibold hover:bg-[#00d4ff]/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {isPending ? 'Odesílám...' : 'Přidat se do týmu'}
-          </button>
-
-          <p className="text-xs text-[#94a3b8]/60 text-center">
-            Profil bude zobrazen po schválení správcem.
-          </p>
-        </form>
       </div>
     </section>
   )

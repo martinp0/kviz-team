@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kvíz IT Tým | Freelance IT specialisté z Prahy",
+  title: "Kvíz IT Tým | Freelance IT specialisté",
   description:
-    "Jsme IT tým z kvízu. QA, DevOps, recruitment a Apple MDM specialista. Máme kapacitu na váš projekt.",
+    "Jsme IT tým z kvízu. QA, DevOps, IT recruitment a Apple MDM specialista. Máme kapacitu na váš projekt.",
   keywords: ["IT freelance", "QA", "DevOps", "Apple MDM", "IT recruitment", "Praha"],
   openGraph: {
     title: "Kvíz IT Tým",
@@ -35,7 +35,9 @@ export default function RootLayout({
       lang="cs"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#08080f] text-[#e2e8f0]">{children}</body>
+      <body className="min-h-full flex flex-col bg-[#fafafa] text-[#0f0f0f]">
+        {children}
+      </body>
     </html>
   );
 }

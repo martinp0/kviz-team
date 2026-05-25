@@ -5,7 +5,7 @@ import { useState } from 'react'
 const QUESTIONS = [
   {
     q: 'Co je MDM?',
-    options: ['Mobile Device Management', 'Most Dynamic Method', 'Mega Data Module', 'Martin\'s Deployment Machine'],
+    options: ['Mobile Device Management', 'Most Dynamic Method', 'Mega Data Module', "Martin's Deploy Machine"],
     correct: 0,
   },
   {
@@ -14,8 +14,8 @@ const QUESTIONS = [
     correct: 1,
   },
   {
-    q: 'Kolik je 2^10?',
-    options: ['512', '1024', '2048', '100'],
+    q: 'Kolik je 2¹⁰?',
+    options: ['512', '1 024', '2 048', '100'],
     correct: 1,
   },
 ]
@@ -42,63 +42,55 @@ export default function QuizEasterEgg() {
   }
 
   function reset() {
-    setQi(0)
-    setScore(0)
-    setSelected(null)
-    setDone(false)
+    setQi(0); setScore(0); setSelected(null); setDone(false)
   }
 
   const q = QUESTIONS[qi]
 
   return (
-    <section className="py-16 px-6 max-w-6xl mx-auto">
-      <div className="flex flex-col items-center text-center">
+    <section className="py-16 px-6">
+      <div className="max-w-5xl mx-auto flex flex-col items-center">
         <button
           onClick={() => setOpen((o) => !o)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#1e2035] text-[#94a3b8] hover:border-[#7c3aed]/50 hover:text-white transition-all text-sm group"
+          className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-200 bg-white shadow-sm text-sm text-gray-600 hover:border-[#7c3aed]/40 hover:text-[#7c3aed] transition-all group"
         >
-          <span className="text-lg">🧠</span>
-          <span>Jsme IT tým z kvízu — otestuj se</span>
-          <span className={`transition-transform ${open ? 'rotate-180' : ''}`}>↓</span>
+          <span className="text-base">🧠</span>
+          Jsme tým z kvízu — otestuj se
+          <span className={`text-gray-300 transition-transform ${open ? 'rotate-180' : ''}`}>↓</span>
         </button>
 
         {open && (
-          <div className="mt-6 w-full max-w-md bg-[#0f0f1a] border border-[#7c3aed]/30 rounded-2xl p-6 text-left">
+          <div className="mt-5 w-full max-w-sm bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
             {!done ? (
               <>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono text-[#94a3b8]">
-                    {qi + 1}/{QUESTIONS.length}
-                  </span>
-                  <div className="h-1 flex-1 mx-3 bg-[#1e2035] rounded-full overflow-hidden">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-xs text-gray-400 font-mono">{qi + 1}/{QUESTIONS.length}</span>
+                  <div className="flex-1 h-1 bg-gray-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-[#7c3aed] rounded-full transition-all"
-                      style={{ width: `${((qi) / QUESTIONS.length) * 100}%` }}
+                      className="h-full bg-[#7c3aed] rounded-full transition-all duration-500"
+                      style={{ width: `${(qi / QUESTIONS.length) * 100}%` }}
                     />
                   </div>
                 </div>
-                <p className="text-white font-medium mb-4">{q.q}</p>
+                <p className="text-sm font-semibold text-[#0f0f0f] mb-4">{q.q}</p>
                 <div className="space-y-2">
                   {q.options.map((opt, idx) => {
                     const isCorrect = idx === q.correct
                     const isSelected = idx === selected
+                    let cls = 'w-full text-left px-4 py-2.5 rounded-xl text-sm border transition-all '
+                    if (selected === null) {
+                      cls += 'border-gray-200 text-gray-600 hover:border-[#7c3aed]/40 hover:bg-[#faf5ff] hover:text-[#7c3aed]'
+                    } else if (isSelected && isCorrect) {
+                      cls += 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                    } else if (isSelected && !isCorrect) {
+                      cls += 'border-red-200 bg-red-50 text-red-600'
+                    } else if (isCorrect) {
+                      cls += 'border-emerald-100 bg-emerald-50/50 text-emerald-600'
+                    } else {
+                      cls += 'border-gray-100 text-gray-400'
+                    }
                     return (
-                      <button
-                        key={opt}
-                        onClick={() => handleAnswer(idx)}
-                        disabled={selected !== null}
-                        className={`w-full text-left px-4 py-2.5 rounded-lg text-sm border transition-all ${
-                          selected === null
-                            ? 'border-[#1e2035] text-[#94a3b8] hover:border-[#7c3aed]/50 hover:text-white'
-                            : isSelected && isCorrect
-                            ? 'border-[#00ff88] bg-[#00ff88]/10 text-[#00ff88]'
-                            : isSelected && !isCorrect
-                            ? 'border-red-400 bg-red-400/10 text-red-400'
-                            : isCorrect
-                            ? 'border-[#00ff88]/50 text-[#00ff88]/50'
-                            : 'border-[#1e2035] text-[#94a3b8]/50'
-                        }`}
-                      >
+                      <button key={opt} onClick={() => handleAnswer(idx)} disabled={selected !== null} className={cls}>
                         {opt}
                       </button>
                     )
@@ -106,23 +98,20 @@ export default function QuizEasterEgg() {
                 </div>
               </>
             ) : (
-              <div className="text-center py-4">
-                <div className="text-4xl mb-3">
+              <div className="text-center py-2">
+                <div className="text-3xl mb-3">
                   {score === QUESTIONS.length ? '🏆' : score >= 2 ? '🎯' : '📚'}
                 </div>
-                <p className="text-white font-semibold mb-1">
-                  {score}/{QUESTIONS.length} správně
-                </p>
-                <p className="text-[#94a3b8] text-sm mb-4">
+                <p className="font-semibold text-[#0f0f0f] mb-1">{score}/{QUESTIONS.length} správně</p>
+                <p className="text-gray-400 text-sm mb-4">
                   {score === QUESTIONS.length
                     ? 'Perfektní! Ty bys do týmu pasoval/a.'
-                    : score >= 2
-                    ? 'Dobrá práce! Kvíz bys zvládl/a.'
+                    : score >= 2 ? 'Dobrá práce! Kvíz bys zvládl/a.'
                     : 'Nevadí — na kvízu se naučíš víc 😄'}
                 </p>
                 <button
                   onClick={reset}
-                  className="px-4 py-2 rounded-lg text-sm border border-[#7c3aed]/50 text-[#a78bfa] hover:bg-[#7c3aed]/10 transition-colors"
+                  className="px-4 py-2 rounded-xl text-sm font-medium bg-[#faf5ff] text-[#7c3aed] hover:bg-[#ede9fe] transition-colors"
                 >
                   Hrát znovu
                 </button>

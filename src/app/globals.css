@@ -18,15 +18,9 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
-  --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -43,93 +37,93 @@
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 :root {
-  --background: #08080f;
-  --foreground: #e2e8f0;
-  --card: #0f0f1a;
-  --card-foreground: #e2e8f0;
-  --popover: #0f0f1a;
-  --popover-foreground: #e2e8f0;
-  --primary: #00d4ff;
-  --primary-foreground: #08080f;
-  --secondary: #1e1e30;
-  --secondary-foreground: #e2e8f0;
-  --muted: #1a1a28;
-  --muted-foreground: #94a3b8;
+  --background: #fafafa;
+  --foreground: #0f0f0f;
+  --card: #ffffff;
+  --card-foreground: #0f0f0f;
+  --popover: #ffffff;
+  --popover-foreground: #0f0f0f;
+  --primary: #3b1f8c;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f8;
+  --secondary-foreground: #0f0f0f;
+  --muted: #f4f4f8;
+  --muted-foreground: #6b7280;
   --accent: #7c3aed;
-  --accent-foreground: #e2e8f0;
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: #1e2035;
-  --input: #1a1a28;
-  --ring: #00d4ff;
-  --chart-1: #00d4ff;
-  --chart-2: #7c3aed;
-  --chart-3: #00ff88;
-  --chart-4: #f59e0b;
-  --chart-5: #ef4444;
-  --radius: 0.625rem;
-  --sidebar: #0f0f1a;
-  --sidebar-foreground: #e2e8f0;
-  --sidebar-primary: #00d4ff;
-  --sidebar-primary-foreground: #08080f;
-  --sidebar-accent: #1e1e30;
-  --sidebar-accent-foreground: #e2e8f0;
-  --sidebar-border: #1e2035;
-  --sidebar-ring: #00d4ff;
-  --cyan: #00d4ff;
-  --purple: #7c3aed;
-  --green: #00ff88;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e5e7eb;
+  --input: #f4f4f8;
+  --ring: #7c3aed;
+  --radius: 0.875rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f0f0f;
+  --sidebar-primary: #3b1f8c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4f4f8;
+  --sidebar-accent-foreground: #0f0f0f;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #7c3aed;
+
+  /* Custom */
+  --violet: #7c3aed;
+  --violet-light: #ede9fe;
+  --navy: #1e1b4b;
+  --blue-accent: #3b82f6;
 }
-
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-.pulse-dot { animation: pulse-glow 2s ease-in-out infinite; }
-.float { animation: float 4s ease-in-out infinite; }
-
-.grid-bg {
-  background-image:
-    linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
-  background-size: 50px 50px;
-}
-
-.card-glow:hover {
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.1), 0 0 60px rgba(0, 212, 255, 0.05);
-}
-
-.text-gradient {
-  background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #08080f; }
-::-webkit-scrollbar-thumb { background: #1e2035; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #2a2a44; }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+  html { @apply font-sans; }
 }
+
+/* Italic violet heading accent — inspired by martinpohl.cz */
+.accent-italic {
+  font-style: italic;
+  color: #7c3aed;
+  font-weight: 700;
+}
+
+/* Card hover */
+.card-hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card-hover:hover {
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.08), 0 2px 8px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+/* Pill tag */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: #f4f4f8;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+/* Subtle grid background */
+.dot-bg {
+  background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.pulse { animation: pulse-dot 2s ease-in-out infinite; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #fafafa; }
+::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 3px; }

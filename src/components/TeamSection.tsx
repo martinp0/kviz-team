@@ -8,8 +8,8 @@ const SEED_MEMBERS: Member[] = [
     role: 'Systems Engineer',
     linkedin_url: 'https://www.linkedin.com/in/martinpohl/',
     description:
-      'Apple MDM specialista a systems engineer. Nastavuji, spravuji a automatizuji Apple zařízení ve firmách — od startupů po enterprise. Taky buduju vlastní projekty a nástroje.',
-    services: ['Apple MDM', 'Jamf Pro', 'Mosyle', 'IT Automation', 'macOS', 'iOS'],
+      'Apple MDM specialista. Nastavuji a automatizuji Apple zařízení ve firmách — zero-touch deployment, Jamf, Mosyle, SSO. Taky buduju vlastní projekty.',
+    services: ['Apple MDM', 'Jamf Pro', 'Mosyle', 'macOS', 'iOS', 'SSO'],
     avatar_url: null,
     approved: true,
     accepting_work: true,
@@ -20,9 +20,8 @@ const SEED_MEMBERS: Member[] = [
     name: 'QA specialista',
     role: 'QA Engineer',
     linkedin_url: 'https://linkedin.com',
-    description:
-      'Přidej se a doplň svůj profil přes formulář níže.',
-    services: ['Testování', 'QA'],
+    description: 'Přidej se přes formulář níže a doplň svůj profil.',
+    services: ['Testování', 'Automatizace', 'QA'],
     avatar_url: null,
     approved: true,
     accepting_work: false,
@@ -33,9 +32,8 @@ const SEED_MEMBERS: Member[] = [
     name: 'IT Recruiterka',
     role: 'IT Recruiter',
     linkedin_url: 'https://linkedin.com',
-    description:
-      'Přidej se a doplň svůj profil přes formulář níže.',
-    services: ['IT Recruitment', 'Sourcing'],
+    description: 'Přidej se přes formulář níže a doplň svůj profil.',
+    services: ['IT Recruitment', 'Sourcing', 'Screening'],
     avatar_url: null,
     approved: true,
     accepting_work: false,
@@ -46,9 +44,8 @@ const SEED_MEMBERS: Member[] = [
     name: 'DevOps Engineer',
     role: 'DevOps Engineer',
     linkedin_url: 'https://linkedin.com',
-    description:
-      'Přidej se a doplň svůj profil přes formulář níže.',
-    services: ['Kubernetes', 'CI/CD', 'AWS', 'Terraform'],
+    description: 'Přidej se přes formulář níže a doplň svůj profil.',
+    services: ['Kubernetes', 'CI/CD', 'AWS', 'Terraform', 'Docker'],
     avatar_url: null,
     approved: true,
     accepting_work: false,
@@ -56,42 +53,37 @@ const SEED_MEMBERS: Member[] = [
   },
 ]
 
-type Props = {
-  dbMembers: Member[]
-}
+export default function TeamSection({ dbMembers }: { dbMembers: Member[] }) {
+  const martinFromDb = dbMembers.find((m) => m.linkedin_url.includes('martinpohl'))
+  const others = dbMembers.filter((m) => !m.linkedin_url.includes('martinpohl'))
 
-export default function TeamSection({ dbMembers }: Props) {
-  const allMembers = [
-    ...SEED_MEMBERS.map((s) => {
-      const match = dbMembers.find((m) =>
-        m.linkedin_url.includes('martinpohl') && s.id === 'seed-1'
-      )
-      return match ?? s
-    }),
-    ...dbMembers.filter(
-      (m) => !m.linkedin_url.includes('martinpohl')
-    ),
+  const displayed: Member[] = [
+    martinFromDb ?? SEED_MEMBERS[0],
+    ...SEED_MEMBERS.slice(1).map((seed, i) => others[i] ?? seed),
+    ...others.slice(3),
   ]
 
   return (
-    <section id="team" className="py-24 px-6 max-w-6xl mx-auto">
-      <div className="mb-12">
-        <div className="inline-flex items-center gap-2 text-xs font-mono text-[#00d4ff] mb-4">
-          <span className="text-[#7c3aed]">{'// '}</span>
-          team.members
+    <section id="team" className="py-24 px-6">
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-12">
+          <p className="text-xs font-semibold text-[#7c3aed] uppercase tracking-widest mb-3">
+            Tým
+          </p>
+          <h2 className="text-4xl font-bold text-[#0f0f0f] mb-3 tracking-tight">
+            Kdo jsme
+          </h2>
+          <p className="text-gray-500 max-w-lg text-base leading-relaxed">
+            Čtyři IT specialisté s různými oblastmi. Potkáváme se u kvízu,
+            spolupracujeme u projektů.
+          </p>
         </div>
-        <h2 className="text-4xl font-bold text-white mb-4">
-          Kdo jsme
-        </h2>
-        <p className="text-[#94a3b8] max-w-xl">
-          Čtyři IT lidé s různými specialitami. Potkáváme se u kvízu, spolupracujeme u projektů.
-        </p>
-      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {allMembers.slice(0, 8).map((member) => (
-          <MemberCard key={member.id} member={member} />
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {displayed.slice(0, 8).map((member) => (
+            <MemberCard key={member.id} member={member} />
+          ))}
+        </div>
       </div>
     </section>
   )

@@ -1,65 +1,75 @@
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
-      {/* Background blobs */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-[#00d4ff]/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-[#7c3aed]/5 rounded-full blur-3xl" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden dot-bg">
+      {/* Soft violet glow top */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#7c3aed]/6 rounded-full blur-3xl -translate-y-1/2" />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0f0f1a] border border-[#1e2035] text-sm text-[#94a3b8] mb-8">
-          <span className="w-2 h-2 rounded-full bg-[#00ff88] pulse-dot" />
-          Přijímáme nové projekty
+      <div className="relative z-10 max-w-3xl mx-auto px-6 text-center pt-20">
+        {/* Pills row */}
+        <div className="flex flex-wrap gap-2 justify-center mb-10">
+          {['Apple MDM', 'DevOps', 'QA', 'IT Recruitment'].map((tag) => (
+            <span key={tag} className="pill">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#7c3aed] opacity-70" />
+              {tag}
+            </span>
+          ))}
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          IT tým{' '}
-          <span className="text-gradient">z kvízu</span>
+        {/* Main heading */}
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[#0f0f0f] leading-[1.08] mb-4">
+          IT specialisté,
+          <br />
+          <span className="accent-italic">kteří se znají.</span>
         </h1>
 
-        <p className="text-xl text-[#94a3b8] mb-4 max-w-2xl mx-auto leading-relaxed">
-          Skupina IT specialistů, která se potkala u kvízových otázek a spojila u
-          projektů. QA, DevOps, IT recruitment a Apple MDM — jsme k dispozici.
+        <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed mb-3">
+          Jsme skupina IT lidí z kvízu. Každý z nás má svoji oblast — dohromady
+          pokryjeme většinu IT potřeb vašeho projektu.
         </p>
-
-        <p className="text-sm text-[#94a3b8]/70 mb-10 font-mono">
+        <p className="text-sm text-gray-400 mb-10">
           Praha &amp; okolí · Remote-first · Flexibilní kapacita
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-16">
           <a
             href="#contact"
-            className="px-8 py-3 rounded-lg bg-[#00d4ff] text-[#08080f] font-semibold hover:bg-[#00d4ff]/90 transition-colors"
+            className="px-7 py-3 rounded-full bg-[#1e1b4b] text-white text-sm font-medium hover:bg-[#2d2a6e] transition-colors inline-flex items-center gap-2"
           >
             Poptejte projekt
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </a>
           <a
             href="#team"
-            className="px-8 py-3 rounded-lg border border-[#1e2035] text-[#94a3b8] hover:border-[#00d4ff]/50 hover:text-white transition-colors"
+            className="px-7 py-3 rounded-full border border-gray-200 bg-white text-sm font-medium text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors"
           >
             Poznejte tým
           </a>
         </div>
 
         {/* Stats */}
-        <div className="mt-20 grid grid-cols-3 gap-8 max-w-md mx-auto">
+        <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
           {[
             { value: '4+', label: 'specialistů' },
             { value: '10+', label: 'let zkušeností' },
-            { value: '∞', label: 'kvízových otázek' },
+            { value: '∞', label: 'kvízových kol' },
           ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-2xl font-bold text-gradient">{stat.value}</div>
-              <div className="text-xs text-[#94a3b8] mt-1">{stat.label}</div>
+            <div
+              key={stat.label}
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm py-4 px-3"
+            >
+              <div className="text-2xl font-bold text-[#7c3aed]">{stat.value}</div>
+              <div className="text-xs text-gray-400 mt-0.5">{stat.label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#94a3b8]/40 text-xs">
-        <span>scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-[#94a3b8]/40 to-transparent" />
+      {/* Scroll hint */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-gray-300 text-xs">
+        <span className="tracking-widest uppercase text-[10px]">scroll</span>
+        <div className="w-px h-8 bg-gradient-to-b from-gray-200 to-transparent" />
       </div>
     </section>
   )

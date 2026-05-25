@@ -1,91 +1,79 @@
-const services = [
+const SERVICES = [
   {
-    icon: '🍎',
+    emoji: '🍎',
     title: 'Apple MDM & Device Management',
-    description:
-      'Nasazení a správa Apple zařízení (Mac, iPhone, iPad) ve firmách. Jamf Pro, Mosyle, zero-touch enrollment.',
-    tags: ['Jamf', 'Mosyle', 'ABM', 'MDM'],
-    color: '#00d4ff',
+    desc: 'Nasazení a správa Apple zařízení ve firmách. Zero-touch enrollment, Jamf Pro, Mosyle, identity & SSO.',
+    tags: ['Jamf', 'Mosyle', 'ABM', 'SSO', 'iOS/macOS'],
+    accent: '#7c3aed',
+    bg: '#faf5ff',
   },
   {
-    icon: '🔧',
+    emoji: '⚙️',
     title: 'DevOps & Infrastructure',
-    description:
-      'CI/CD pipelines, Kubernetes, cloud infrastructure (AWS/GCP/Azure), IaC s Terraform.',
-    tags: ['Kubernetes', 'Terraform', 'AWS', 'CI/CD'],
-    color: '#7c3aed',
+    desc: 'CI/CD pipelines, Kubernetes, cloud infrastructure, IaC. Vaše infra jako kód — spolehlivá a opakovatelná.',
+    tags: ['Kubernetes', 'Terraform', 'AWS', 'CI/CD', 'Docker'],
+    accent: '#2563eb',
+    bg: '#eff6ff',
   },
   {
-    icon: '🔍',
+    emoji: '🔍',
     title: 'Quality Assurance',
-    description:
-      'Manuální i automatizované testování. Test plány, regrese, performance testing. Zajistíme kvalitu vašeho produktu.',
-    tags: ['Manual QA', 'Automation', 'Selenium', 'Cypress'],
-    color: '#00ff88',
+    desc: 'Manuální i automatizované testování. Test strategie, regrese, performance. Kvalita jako standard, ne doplněk.',
+    tags: ['Manual QA', 'Cypress', 'Selenium', 'Playwright'],
+    accent: '#059669',
+    bg: '#f0fdf4',
   },
   {
-    icon: '🤝',
+    emoji: '🤝',
     title: 'IT Recruitment',
-    description:
-      'Hledáme správné lidi do vašeho IT týmu. Sourcing, screening, placement. Rozumíme technologiím i lidem.',
-    tags: ['Sourcing', 'Screening', 'Tech Roles', 'HR'],
-    color: '#fbbf24',
+    desc: 'Hledáme správné lidi do vašeho IT týmu. Sourcing, screening, placement. Rozumíme technologiím i lidem.',
+    tags: ['Sourcing', 'Screening', 'Tech Roles', 'Onboarding'],
+    accent: '#d97706',
+    bg: '#fffbeb',
   },
 ]
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-24 px-6 bg-[#0a0a14] relative overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-50" />
-
-      <div className="relative z-10 max-w-6xl mx-auto">
+    <section id="services" className="py-24 px-6 bg-[#f4f4f8]">
+      <div className="max-w-5xl mx-auto">
         <div className="mb-12">
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#00d4ff] mb-4">
-            <span className="text-[#7c3aed]">{'// '}</span>
-            services.available
-          </div>
-          <h2 className="text-4xl font-bold text-white mb-4">
+          <p className="text-xs font-semibold text-[#7c3aed] uppercase tracking-widest mb-3">
+            Služby
+          </p>
+          <h2 className="text-4xl font-bold text-[#0f0f0f] mb-3 tracking-tight">
             Co umíme
           </h2>
-          <p className="text-[#94a3b8] max-w-xl">
-            Každý z nás přináší jinou sadu skills. Dohromady pokryjeme většinu IT potřeb vašeho projektu.
+          <p className="text-gray-500 max-w-lg text-base leading-relaxed">
+            Každý z nás přináší jinou sadu skills. Dohromady pokryjeme většinu
+            IT potřeb vašeho projektu nebo firmy.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {services.map((service) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {SERVICES.map((s) => (
             <div
-              key={service.title}
-              className="bg-[#0f0f1a] border border-[#1e2035] rounded-2xl p-6 hover:border-[#00d4ff]/20 transition-all duration-300 group"
+              key={s.title}
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 card-hover"
             >
-              <div className="flex items-start gap-4">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-                  style={{ backgroundColor: `${service.color}10`, border: `1px solid ${service.color}20` }}
-                >
-                  {service.icon}
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold mb-2">{service.title}</h3>
-                  <p className="text-[#94a3b8] text-sm leading-relaxed mb-4">
-                    {service.description}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {service.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 rounded text-xs"
-                        style={{
-                          backgroundColor: `${service.color}10`,
-                          color: service.color,
-                          border: `1px solid ${service.color}20`,
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4"
+                style={{ background: s.bg }}
+              >
+                {s.emoji}
+              </div>
+              <h3 className="font-semibold text-[#0f0f0f] mb-2">{s.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed mb-4">{s.desc}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {s.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2.5 py-0.5 rounded-full text-xs font-medium"
+                    style={{ background: s.bg, color: s.accent }}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           ))}
