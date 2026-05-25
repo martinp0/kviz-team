@@ -2,6 +2,7 @@ import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import TeamSection from '@/components/TeamSection'
 import ServicesSection from '@/components/ServicesSection'
+import Process from '@/components/Process'
 import WhyUs from '@/components/WhyUs'
 import QuizEasterEgg from '@/components/QuizEasterEgg'
 import JoinSection from '@/components/JoinSection'
@@ -34,6 +35,7 @@ export default async function Page() {
       <Hero />
       <TeamSection dbMembers={members} />
       <ServicesSection />
+      <Process />
       <WhyUs />
       <QuizEasterEgg />
       <JoinSection />
