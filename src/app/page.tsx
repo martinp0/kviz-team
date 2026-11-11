@@ -10,6 +10,12 @@ import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 import { Member } from '@/lib/types'
 
+// Public marketing page: language, theme, and motion run in the browser.
+// The only server data is the shared approved-members list, so prerender
+// the route and refresh it every 5 minutes instead of on each request.
+export const dynamic = 'force-static'
+export const revalidate = 300
+
 async function getMembers(): Promise<Member[]> {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return []
   try {
@@ -24,8 +30,6 @@ async function getMembers(): Promise<Member[]> {
     return []
   }
 }
-
-export const revalidate = 60
 
 export default async function Page() {
   const members = await getMembers()
